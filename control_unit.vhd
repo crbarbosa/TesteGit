@@ -28,6 +28,7 @@ entity control_unit is
     halt                : out std_logic
     );
 end control_unit;
+--
 architecture rtl of control_unit is
     type estados is (
     FETCH,
@@ -56,6 +57,7 @@ begin
                 end if;
             end if;
     end process;
+    -- ********** Carlos init commit **********
     process(clk,estado_atual)
         begin
             prox_estado <= estado_atual;
@@ -119,7 +121,8 @@ begin
                         when others =>
                             prox_estado <= HALTI;
                     end case;
-                
+ -- ********** Carlos end commit **********       
+ -- ********** Debora init commit **********        
                 when NOP =>
                     ir_enable <= '0';
                     flags_reg_enable <= '0';
@@ -200,15 +203,5 @@ begin
                     prox_estado <= FETCH;
             end case ;
     end process ;
---process to test environment ... remove this
---    main: process(clk, rst_n)
---    begin
---        if (rst_n = '0') then
---            counter <= (others => '0');
---        elsif (clk'event and clk='1') then
---            counter <= counter + 1;
---        end if;
---    end process main;
---    halt <= '1' when counter = x"5f" else '0';
--- remove until here....
 end rtl;
+-- ********** Debora init commit **********
