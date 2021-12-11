@@ -30,6 +30,7 @@ entity control_unit is
 end control_unit;
 --
 architecture rtl of control_unit is
+      -- ********** Debora init commit **********
     type estados is (
     FETCH,
     DECODE,
@@ -57,6 +58,7 @@ begin
                 end if;
             end if;
     end process;
+     -- ********** Debora end commit **********
     -- ********** Carlos init commit **********
     process(clk,estado_atual)
         begin
@@ -204,4 +206,4 @@ begin
             end case ;
     end process ;
 end rtl;
--- ********** Debora init commit **********
+-- ********** Debora end commit **********
