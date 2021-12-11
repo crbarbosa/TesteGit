@@ -32,6 +32,7 @@ entity data_path is
 end data_path;
 
 architecture rtl of data_path is
+  -- ********** Debora init commit **********
   type reg_bank_type is array(natural range <>) of std_logic_vector(15 downto 0);
   signal banco_de_reg : reg_bank_type(0 to 3);
   signal  bus_a : std_logic_vector(15 downto 0);
@@ -46,10 +47,11 @@ architecture rtl of data_path is
   signal  program_counter : std_logic_vector(4 downto 0);
 
 begin
+  
   --Banco de registradores
   bus_a <= banco_de_reg(conv_integer(a_addr));
   bus_b <= banco_de_reg(conv_integer(b_addr));
-  bus_c <= ula_out when (c_sel = '0') else data_in; --Se lembrar na hora de fazer o Control Unit foi pra linha 52 qualquer coisa 
+  bus_c <= ula_out when (c_sel = '0') else data_in; 
 
   --Mux RAM
   ram_addr <= mem_addr when (addr_sel = '0') else program_counter;
@@ -60,7 +62,9 @@ begin
   --a_addr <= end. reg
   --b_addr <= end. reg
   --c_addr <= end. reg
+  -- ********** Debora end commit **********
   
+  -- ********** Carlos init commit **********
   process (instruction)
   begin
     --decoded_instruction <= I_NOP;
@@ -148,7 +152,9 @@ begin
         banco_de_reg(conv_integer(b_addr)) <= bus_b;
         banco_de_reg(conv_integer(c_addr)) <= bus_c;
       end if ;
+-- ********** Carlos end commit **********
 
+-- ********** Debora init commit **********
       --Registrador de Flags
       if (flags_reg_enable = '1') then
         neg_op <= ula_out(15);
@@ -186,6 +192,9 @@ begin
             end if;
         end if;
       end if;
+-- ********** Debora end commit **********
+
+-- ********** Carlos init commit **********
 
       --Intepretador de Instrucoes
       if (ir_enable = '1') then
@@ -206,35 +215,4 @@ begin
     end if;
   end process;
 end rtl;
-
-
-
-
-
-
-/*
-       if (operation = "10") then
-            if ((a[15] ='0' and z[15] ='1') or (a[15] ='0' and b[15] ='1') or (b[15] ='1' and z[15] ='1')) unsigned_overflow <= '1';
-            else
-                unsigned_overflow <= '0';
-            end if;
-            
-            if  ((a[15] ='0' and b[15] ='1' and z[15] ='1') or (a[15] ='1' and b[15] ='0' and z[15] ='0')) signed_overflow <= '1';
-            else
-                signed_overflow <= '0';
-            end if;
-        end if ;
-      
-        if (operation = "01") then
-            if  ((z[15] = '0' and b[15] = '1') or (z[15] = '0' and a[15]='1') or (b[15] = '1' and a[15] ='1')) unsigned_overflow <= '1';
-            else
-                unsigned_overflow <= '0';
-            end if;
-            
-            if (((a[15] = '0' and b[15] = '0' and z[15] = '1') or (a[15] = '1' and b[15] = '1' and z[15] ='0'))) signed_overflow <= '1';
-            else
-                signed_overflow <= '0';
-            end if;
-        end if;
-      end if;
-      */
+-- ********** Carlos end commit **********
